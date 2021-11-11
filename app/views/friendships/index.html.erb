@@ -1,0 +1,23 @@
+<%= link_to 'Add Friend', friendships_path(friendship: {friend_id: @user.id, user_id: current_user.id}), method: :post%>
+
+<% if friendship.status == "pending" %> 
+
+    <%= link_to 'Accept', friendship, friendship:{status: "accepted"}, method: :patch %>
+    
+    <% elsif friendship.status == "accepted" && friendship.friend == current_user %>
+
+    <%= link_to 'Delete', friendship, friendship:{user_id: friendship.friend, friend_id: current_user }, method: :delete, data: { confirm: 'Are you sure?' } %>
+
+    <% elsif friendship.status == "accepted" && friendship.user == current_user %>
+
+    <%= link_to 'Delete', friendship, friendship:{user_id: current_user, friend_id: friendship.friend },  method: :delete, data: { confirm: 'Are you sure?' } %>
+
+    <% else %> <!-- if sending friendship request -->
+    
+    <%= link_to 'Delete', friendship, friendship:{user_id: current_user, friend_id: friendship.friend}, 
+        method: :delete, data: { confirm: 'Are you sure?' } %>
+ 
+<% end %> 
+
+
+  

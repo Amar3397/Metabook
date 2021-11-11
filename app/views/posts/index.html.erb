@@ -1,0 +1,59 @@
+<table style="width:100%" border="2" cellspacing="20">
+	 
+	<h1>List of all Posts</h1>
+		<thead>
+			<th>Post Description</th>
+			<th>Action</th>
+			<th>Comment</th>
+			<th>Like or Unlike</th>
+		</thead>
+	
+		<% @posts.each do |post| %>
+			<tr>
+				<td><%= post.post_description %></td>
+				<td><%= link_to 'show',post_path(post), class: "btn btn-info" %>
+					<%= link_to 'edit', edit_post_path(post), class: "btn btn-success" %>
+					<%= link_to 'delete', post, method: :delete, data:{ confirm: "are you sure to delete"}, class: "btn btn-danger" %>
+				</td>
+				<td><%= link_to "comment", new_post_comment_path(post), class: "btn btn-primary" %></td>
+				<td>					
+					<%= post.likes.count %> <%= (post.likes.count) == 1 ? 'Like' : 'Likes'%>
+		
+		            <% pre_like = post.likes.find { |like| like.user_id == current_user.id} %>		
+		            <% if pre_like %>
+		              <%= button_to 'Unlike', post_like_path(post, pre_like), method: :delete, class: "btn btn-primary" %>
+		            <% else %>
+		              <%= button_to 'Like', post_likes_path(post), method: :post, class: "btn btn-primary" %>
+					<% end %>	
+				</td>
+
+			</tr>			
+		<% end %>		
+</table>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+	

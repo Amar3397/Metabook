@@ -1,0 +1,20 @@
+<p>
+  <strong>Description:-</strong>
+  <%= @post.post_description %>
+</p>
+
+  <%= link_to 'edit', edit_post_path(@post) %> 
+  <%= link_to 'Back', posts_path %>
+  <%= button_to 'Like', post_likes_path(@post), method: :post %>
+  <p><%= @post.likes.count %> <%= (@post.likes.count) == 1 ? 'Like' : 'Likes'%></p>
+ 
+  
+    <h2>Comments</h2>
+    <%=  render @post.comments %>
+
+    <h2>Add comment</h2>
+    <%= render 'comments/form' %>
+
+  <% if user_signed_in? %>
+    <%= link_to"SignOut", destroy_user_session_path, method: :delete%><br>
+  <% end %>

@@ -1,0 +1,17 @@
+
+<h2>Add a post</h2>
+<%= form_with(model: @post) do |f| %>
+	
+	<div class="field">
+		<%= f.label :post_description %><br>
+	</div>
+	<div class="field">
+		<%=f.text_field :post_description %><br>
+	</div>
+	<div class="field">
+		<%= f.submit %> 
+	</div>
+	<% link_to 'Back', posts_path %>
+<% end %>
+
+
